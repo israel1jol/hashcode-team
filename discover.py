@@ -4,28 +4,37 @@ roles_assigned_to_dev = {}
 
 def main(input_case):
     try:
-        file = open(input_case, "r")
-        evaluateInput(file)
+        file1 = open(input_case, "r")
+        file2 = open("output.txt", "w")
+        evaluateInput(file1)
 
         assignTasks()
 
-        create_output_file()
+        create_output_file(file2)
         
 
     except Exception as e:
         print(e)
     else:
+        print("Successfully one this shit dfkm")
         return 0
     finally:
-        file.close()
+        file1.close()
+        file2.close()
 
 
 
+def create_output_file(file):
+    count = len(projects)
+    file.write(str(count) + '\n')
+    for role in roles_assigned_to_dev:
+        file.write(role + '\n')
+        contributor_string = ""
+        contributor_string += ' '.join(roles_assigned_to_dev[role]) + '\n'
+        file.write(contributor_string)
+    else:
+        print("Success")
 
-
-def create_output_file():
-    file = open("output.txt", "w")
-    file.close()
 
 def assignTasks():
     for project in projects:
