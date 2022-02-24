@@ -6,8 +6,10 @@ def main(input_case):
     try:
         file = open(input_case, "r")
         evaluateInput(file)
+
         assignTasks()
-        print(roles_assigned_to_dev)
+
+        create_output_file()
         
 
     except Exception as e:
@@ -19,6 +21,12 @@ def main(input_case):
 
 
 
+
+
+def create_output_file():
+    file = open("output.txt", "w")
+    file.close()
+
 def assignTasks():
     for project in projects:
        roles = projects[project]
@@ -27,7 +35,13 @@ def assignTasks():
 
            for i in range(len(roles)):
                for a in range(len(skills)):
-                   if list(roles[i].keys())[0] == list(skills[a].keys())[0] and list(roles[i].values())[0] <= list(skills[a].values())[0]:
+                   roll_key = list(roles[i].keys())[0]
+                   skill_key = list(skills[a].keys())[0]
+
+                   roll_value  = list(roles[i].values())[0]
+                   skill_value = list(skills[a].values())[0]
+
+                   if roll_key == skill_key  and (roll_value <= skill_value or int(roll_value) - 1 == int(skill_value)):
                        roles_assigned_to_dev[project].append(contributor)               
 
 
