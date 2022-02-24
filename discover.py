@@ -1,13 +1,13 @@
 projects = {}
 contributors = {}
+roles_assigned_to_dev = {}
 
 def main(input_case):
     try:
         file = open(input_case, "r")
         evaluateInput(file)
-        print(contributors)
-        print()
-        print(projects)
+        assignTasks()
+        print(roles_assigned_to_dev)
         
 
     except Exception as e:
@@ -17,6 +17,18 @@ def main(input_case):
     finally:
         file.close()
 
+
+
+def assignTasks():
+    for project in projects:
+       roles = projects[project]
+       for contributor in contributors:
+           skills = contributors[contributor]
+
+           for i in range(len(roles)):
+               for a in range(len(skills)):
+                   if list(roles[i].keys())[0] == list(skills[a].keys())[0] and list(roles[i].values())[0] <= list(skills[a].values())[0]:
+                       roles_assigned_to_dev[project].append(contributor)               
 
 
 def evaluateInput(file):
@@ -47,6 +59,7 @@ def evaluateInput(file):
             roles = proj_array[4]
 
             projects[proj_array[0]] = []
+            roles_assigned_to_dev[proj_array[0]] = []
 
             for a in range(int(roles)):
                 role_line_content = file.readline()
